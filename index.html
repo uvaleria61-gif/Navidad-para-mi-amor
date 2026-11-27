@@ -182,17 +182,62 @@ for (let i = 1; i <= 24; i++) {
   const today = new Date();
   const unlocked = today.getMonth() === 11 && today.getDate() >= i;
 
-  button.disabled = !unlocked;
+  
+button.disabled = !unlocked;
 
-  button.onclick = () => {
-    document.getElementById("title").textContent =
-      i === 24 ? "Para mi Daney ♡" : "Día " + i;
+button.onclick = () => {
+  const title = document.getElementById("title");
+  const message = document.getElementById("message");
 
-    document.getElementById("message").textContent = surprises[i-1];
-    document.getElementById("modal").style.display = "flex";
-  };
+  title.textContent = i === 24 ? "Para mi Daney ♡" : "Día " + i;
 
-  calendar.appendChild(button);
+  message.innerHTML = "";
+
+  const content = document.createElement("p");
+  content.textContent = surprises[i - 1];
+  message.appendChild(content);
+
+  // Espacio para agregar fotos, videos, audios y juegos
+  if (i === 2 || i === 10 || i === 16) {
+    const photo = document.createElement("img");
+    photo.src = "fotos/foto" + i + ".jpg";
+    photo.alt = "Un recuerdo especial";
+    photo.style.width = "100%";
+    photo.style.borderRadius = "15px";
+    message.appendChild(photo);
+  }
+
+  if (i === 5 || i === 14) {
+    const audio = document.createElement("audio");
+    audio.src = "audios/audio" + i + ".mp3";
+    audio.controls = true;
+    audio.style.width = "100%";
+    message.appendChild(audio);
+  }
+
+  if (i === 7 || i === 18) {
+    const video = document.createElement("video");
+    video.src = "videos/video" + i + ".mp4";
+    video.controls = true;
+    video.style.width = "100%";
+    video.style.borderRadius = "15px";
+    message.appendChild(video);
+  }
+
+  if (i === 4 || i === 9 || i === 15 || i === 19) {
+    const game = document.createElement("button");
+    game.textContent = "💕 Toca aquí para descubrir tu reto";
+    game.onclick = () => {
+      alert("¡Tu reto es darme muchos besitos y un abrazo enorme! ❤️");
+    };
+    message.appendChild(game);
+  }
+
+  document.getElementById("modal").style.display = "flex";
+};
+
+calendar.appendChild(button);
+
 }
 
 function closeModal() {
