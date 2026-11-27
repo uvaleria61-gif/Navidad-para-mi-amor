@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Daney ♡</title>
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 25px 16px;
+  min-height: 100vh;
+  background: linear-gradient(145deg,#fff5fa,#f2edff,#edf6ff);
+  font-family: Georgia, serif;
+  color: #806b91;
+  text-align: center;
+}
+
+header { margin: 35px auto 30px; }
+
+.small {
+  font: 11px Arial,sans-serif;
+  letter-spacing: 3px;
+  color: #b69bbd;
+}
+
+h1 {
+  font-size: 32px;
+  font-weight: normal;
+  line-height: 1.3;
+  color: #a184b5;
+}
+
+.subtitle {
+  font-size: 15px;
+  color: #ae9bbd;
+  font-style: italic;
+}
+
+.calendar {
+  max-width: 430px;
+  margin: 30px auto;
+  display: grid;
+  grid-template-columns: repeat(4,1fr);
+  gap: 12px;
+}
+
+.day {
+  aspect-ratio: 1;
+  border: 1px solid #ffffff;
+  border-radius: 17px;
+  background: #f8e8f1;
+  color: #a17f9e;
+  font-size: 23px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px #bca9c522;
+}
+
+.day:nth-child(3n+2) { background:#eae1f6; }
+.day:nth-child(3n) { background:#e2effa; }
+
+.day:disabled {
+  opacity: .65;
+  cursor: default;
+}
+
+.day.special {
+  background: #d9c4eb;
+  border: 1px solid white;
+  font-size: 27px;
+}
+
+footer {
+  font-size: 13px;
+  color: #b19dbb;
+  margin: 30px 0;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: #65536b99;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-content {
+  background: #fffafd;
+  border-radius: 24px;
+  padding: 30px 22px;
+  max-width: 350px;
+  width: 100%;
+  box-shadow: 0 10px 40px #51405b33;
+}
+
+.modal h2 {
+  font-weight: normal;
+  color: #a184b5;
+}
+
+.modal p {
+  line-height: 1.8;
+  font-size: 16px;
+}
+
+.close {
+  border: none;
+  border-radius: 20px;
+  padding: 11px 25px;
+  background: #eadcf4;
+  color: #806b91;
+  font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="small">A LITTLE CHRISTMAS FOR YOU</div>
+  <h1>24 pequeños<br>pedacitos de amor</h1>
+  <div class="subtitle">Un diciembre hecho pensando en ti ♡</div>
+</header>
+
+<div class="calendar" id="calendar"></div>
+
+<footer>
+  Cada día es una pequeña razón para sonreír ♡
+</footer>
+
+<div class="modal" id="modal">
+  <div class="modal-content">
+    <div style="font-size:30px">♡</div>
+    <h2 id="title"></h2>
+    <p id="message"></p>
+    <button class="close" onclick="closeModal()">Cerrar ♡</button>
+  </div>
+</div>
+
+<script>
+const surprises = [
+"Bienvenida, mi amor. Preparé este pequeño mundo para ti. Quiero que cada día encuentres un pedacito de todo lo que siento por ti. ♡",
+"Hoy quiero recordarte lo hermosa y especial que eres.",
+"Hay canciones que me hacen pensar inmediatamente en ti.",
+"Cinco razones por las que me encantas.",
+"Si pudiera repetir un momento contigo, elegiría...",
+"Una pequeña sorpresa preparada con mucho cariño.",
+"Gracias por existir y hacer mis días más bonitos.",
+"Un recuerdo tuyo que siempre guardaré.",
+"Hoy quiero regalarte un abrazo enorme, aunque sea a la distancia.",
+"Admiro muchísimo la persona que eres.",
+"Una pequeña lista de nuestros momentos favoritos.",
+"Quiero seguir creando recuerdos contigo.",
+"Hoy te dedico una canción especial.",
+"Me encanta cuando sonríes.",
+"Un mensaje para recordarte cuánto te quiero.",
+"Si estuviéramos juntos ahora, haríamos...",
+"Una de las cosas que más me gustan de ti.",
+"Gracias por cada momento compartido.",
+"Quiero que nunca olvides lo valiosa que eres.",
+"Un deseo que tengo para nosotros.",
+"Hoy quiero decirte algo que quizás no te digo suficiente.",
+"Imagino muchos momentos bonitos a tu lado.",
+"Ya casi llega Navidad, mi amor. Te quiero muchísimo.",
+"Daney, mi regalo más bonito es poder compartir momentos contigo. Feliz Navidad, mi amor. ♡"
+];
+
+const calendar = document.getElementById("calendar");
+
+for (let i = 1; i <= 24; i++) {
+  const button = document.createElement("button");
+  button.className = i === 24 ? "day special" : "day";
+  button.textContent = i === 24 ? "♡" : i;
+
+  const today = new Date();
+  const unlocked = today.getMonth() === 11 && today.getDate() >= i;
+
+  button.disabled = !unlocked;
+
+  button.onclick = () => {
+    document.getElementById("title").textContent =
+      i === 24 ? "Para mi Daney ♡" : "Día " + i;
+
+    document.getElementById("message").textContent = surprises[i-1];
+    document.getElementById("modal").style.display = "flex";
+  };
+
+  calendar.appendChild(button);
+}
+
+function closeModal() {
+  document.getElementById("modal").style.display = "none";
+}
+</script>
+
+</body>
+</html>
